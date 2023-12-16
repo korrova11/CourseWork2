@@ -8,22 +8,23 @@ import java.util.*;
 
 @Service
 
-public class ExaminerServiceImpl implements ExaminerService{
-   // Random random;
+public class ExaminerServiceImpl implements ExaminerService {
+    // Random random;
     QuestionService questionService;
-    ExaminerServiceImpl(QuestionService questionService){
-        this.questionService=questionService;
+
+    ExaminerServiceImpl(QuestionService questionService) {
+
+        this.questionService = questionService;
     }
 
     @Override
     public Set<Question> getQuestion(int amount) {
-        if (amount>questionService.size()) {
-            throw new FullSet("Максимальное количество вопросов = " +questionService.size());
+        if (amount > questionService.size()) {
+            throw new FullSet("Максимальное количество вопросов = " + questionService.size());
         }
 
         Set<Question> list = new HashSet<Question>();
-        while (list.size()<amount)
-        {
+        while (list.size() < amount) {
             list.add(questionService.getRandomQuestion());
         }
         return list;

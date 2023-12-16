@@ -1,12 +1,14 @@
 package pro.sky.java.course2.CourseWork2.service;
 
 import org.springframework.stereotype.Service;
+import pro.sky.java.course2.CourseWork2.exception.QuestionNotFound;
 import pro.sky.java.course2.CourseWork2.model.Question;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+
 @Service
 public class JavaQuestionService implements QuestionService {
     private final ArrayList<Question> listQuestion = new ArrayList<>(List.of(
@@ -65,8 +67,10 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question remove(Question question) {
-        listQuestion.remove(question);
-        return question;
+        if (listQuestion.contains(question)) {
+            listQuestion.remove(question);
+            return question;
+        } else throw new QuestionNotFound("Элемента нет в списке");
     }
 
     @Override
@@ -75,14 +79,24 @@ public class JavaQuestionService implements QuestionService {
     }
 
     @Override
+    public Question find(String question) {
+        return listQuestion.stream()
+                .filter(e -> e.getQuestion().equals(question))
+                .findFirst()
+                .orElseThrow(QuestionNotFound::new);
+
+    }
+
+    @Override
     public Question getRandomQuestion() {
         Random random = new Random();
-        int i = random.nextInt ( listQuestion.size()) ;
+        int i = random.nextInt(listQuestion.size());
 
         return listQuestion.get(i);
     }
+
     @Override
-    public int size(){
+    public int size() {
         return listQuestion.size();
     }
 }

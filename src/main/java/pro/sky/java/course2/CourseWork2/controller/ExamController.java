@@ -8,17 +8,19 @@ import java.util.Collection;
 import java.util.Set;
 
 @RestController
-@RequestMapping ("/get")
+@RequestMapping("/get")
 
 public class ExamController {
     ExaminerService examinerService;
 
     public ExamController(ExaminerService examinerService) {
+
         this.examinerService = examinerService;
     }
-@GetMapping("{amount}")
-    public Set<Question> getQuestions(@PathVariable int amount){
+
+    @GetMapping("{amount}")
+    public Set<Question> getQuestions(@PathVariable int amount) {
         return examinerService.getQuestion(amount);
-}
+    }
 
 }
