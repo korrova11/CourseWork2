@@ -49,6 +49,9 @@ public class JavaQuestionService implements QuestionService {
     @Override
     public Question add(String question, String answer) {
         Question q = new Question(question, answer);
+        if (listQuestion.contains(q)) {
+            throw new IllegalArgumentException("Данный вопрос уже есть в списке");
+        }
         listQuestion.add(q);
         return q;
     }
@@ -74,8 +77,12 @@ public class JavaQuestionService implements QuestionService {
     @Override
     public Question getRandomQuestion() {
         Random random = new Random();
-        int i = random.nextInt( + listQuestion.size() - 1);
+        int i = random.nextInt ( listQuestion.size()) ;
 
         return listQuestion.get(i);
+    }
+    @Override
+    public int size(){
+        return listQuestion.size();
     }
 }

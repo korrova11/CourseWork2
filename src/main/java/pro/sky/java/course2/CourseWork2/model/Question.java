@@ -3,8 +3,8 @@ package pro.sky.java.course2.CourseWork2.model;
 import java.util.Objects;
 
 public class Question {
-    String question;
-    String answer;
+    private final String question;
+    private final String answer;
 
     public Question(String question, String answer) {
         this.question = question;
