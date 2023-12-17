@@ -67,10 +67,11 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question remove(Question question) {
-        if (listQuestion.contains(question)) {
-            listQuestion.remove(question);
+
+        if (listQuestion.remove(question)) {
             return question;
-        } else throw new QuestionNotFound("Элемента нет в списке");
+        }
+        throw new QuestionNotFound("Элемента нет в списке");
     }
 
     @Override

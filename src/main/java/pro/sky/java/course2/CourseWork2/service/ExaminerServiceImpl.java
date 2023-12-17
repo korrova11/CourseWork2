@@ -10,7 +10,7 @@ import java.util.*;
 
 public class ExaminerServiceImpl implements ExaminerService {
     // Random random;
-    QuestionService questionService;
+    private final QuestionService questionService;
 
     ExaminerServiceImpl(QuestionService questionService) {
 
@@ -23,7 +23,7 @@ public class ExaminerServiceImpl implements ExaminerService {
             throw new FullSet("Максимальное количество вопросов = " + questionService.size());
         }
 
-        Set<Question> list = new HashSet<Question>();
+        Set<Question> list = new HashSet<>();
         while (list.size() < amount) {
             list.add(questionService.getRandomQuestion());
         }

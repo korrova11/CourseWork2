@@ -5,13 +5,14 @@ import pro.sky.java.course2.CourseWork2.model.Question;
 import pro.sky.java.course2.CourseWork2.service.ExaminerService;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/get")
 
 public class ExamController {
-    ExaminerService examinerService;
+    private final ExaminerService examinerService;
 
     public ExamController(ExaminerService examinerService) {
 

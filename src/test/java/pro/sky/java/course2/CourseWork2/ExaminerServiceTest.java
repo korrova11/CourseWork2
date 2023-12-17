@@ -41,13 +41,28 @@ public class ExaminerServiceTest {
 
     @Test
     public void getQuestionTestOnThrow() {
-        when(questionService.getRandomQuestion())
-                .thenReturn(QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5);
         when(questionService.size()).thenReturn(5);
-        assertEquals(out.getQuestion(5).size(), 5);
-        assertThrows(FullSet.class, () -> out.getQuestion(7));
+              assertThrows(FullSet.class, () -> out.getQuestion(7));
 
     }
+
+    @Test
+    public void getQuestionTest() {
+        when(questionService.getRandomQuestion())
+                .thenReturn(QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5);
+        when(questionService.size()).thenReturn(10);
+        assertEquals(out.getQuestion(5).size(), 5);
+
+    }
+    @Test
+    public void getQuestionTestOnContains() {
+        when(questionService.getRandomQuestion())
+                .thenReturn(QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5);
+        when(questionService.size()).thenReturn(10);
+       assertTrue(out.getQuestion(5).contains(QUESTION_3));
+
+    }
+
 
 
 }
