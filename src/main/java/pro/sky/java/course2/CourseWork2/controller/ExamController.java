@@ -1,5 +1,6 @@
 package pro.sky.java.course2.CourseWork2.controller;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.java.course2.CourseWork2.model.Question;
 import pro.sky.java.course2.CourseWork2.service.ExaminerService;
@@ -12,6 +13,7 @@ import java.util.Set;
 @RequestMapping("/get")
 
 public class ExamController {
+
     private final ExaminerService examinerService;
 
     public ExamController(ExaminerService examinerService) {

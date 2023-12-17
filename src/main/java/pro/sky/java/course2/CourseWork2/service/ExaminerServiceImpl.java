@@ -1,5 +1,7 @@
 package pro.sky.java.course2.CourseWork2.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pro.sky.java.course2.CourseWork2.exception.FullSet;
 import pro.sky.java.course2.CourseWork2.model.Question;
@@ -9,10 +11,11 @@ import java.util.*;
 @Service
 
 public class ExaminerServiceImpl implements ExaminerService {
-    // Random random;
+
     private final QuestionService questionService;
 
-    ExaminerServiceImpl(QuestionService questionService) {
+    @Autowired
+    ExaminerServiceImpl(@Qualifier("mathQuestionService") QuestionService questionService) {
 
         this.questionService = questionService;
     }
