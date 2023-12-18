@@ -17,6 +17,7 @@ public class MathQuestionController {
 
 
     private final MathQuestionService question2;
+
     public MathQuestionController(MathQuestionService question) {
         this.question2 = question;
     }
@@ -24,7 +25,7 @@ public class MathQuestionController {
     @GetMapping("/add")
     public Question add(@RequestParam String question, @RequestParam String answer) {
 
-        return question2.add(question,answer);
+        return question2.add(question, answer);
     }
 
     @GetMapping("/remove")

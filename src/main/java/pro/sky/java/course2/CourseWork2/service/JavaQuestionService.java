@@ -50,7 +50,8 @@ public class JavaQuestionService implements QuestionService {
 
         return javaRepository.getAll().get(i);
     }
-    public int size(){
+
+    public int size() {
         return javaRepository.getAll().size();
     }
 

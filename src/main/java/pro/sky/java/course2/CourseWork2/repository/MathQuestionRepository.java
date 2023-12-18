@@ -9,7 +9,7 @@ import java.util.*;
 @Repository
 
 public class MathQuestionRepository implements QuestionRepository {
-  //  private final List<Question> listQuestion = new ArrayList<>();
+    //  private final List<Question> listQuestion = new ArrayList<>();
 
     private final ArrayList<Question> listQuestion = new ArrayList<>(List.of(
             new Question(
@@ -46,6 +46,7 @@ public class MathQuestionRepository implements QuestionRepository {
                     "ответ")
 
     ));
+
     @Override
     public Question add(String question, String answer) {
         Question q = new Question(question, answer);

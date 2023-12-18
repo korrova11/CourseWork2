@@ -42,7 +42,7 @@ public class QuestionServiceTest {
     private final String ANSWER2 = "Ответ2";
     private final Question questionJ = new Question(QUESTION1, ANSWER1);
     private final Question questionM = new Question(QUESTION2, ANSWER2);
-    private final List QUESTIONS = new ArrayList<>(List.of(questionJ,questionM));
+    private final List QUESTIONS = new ArrayList<>(List.of(questionJ, questionM));
 
     @Test
     public void addTest() {
@@ -51,15 +51,16 @@ public class QuestionServiceTest {
 
         assertEquals(questionJ, outJ.add(QUESTION1, ANSWER1));
         assertEquals(questionM, outM.add(QUESTION2, ANSWER2));
-        verify(javaRepository,times(1)).add(QUESTION1,ANSWER1);
-        verify(mathRepository,times(1)).add(QUESTION2,ANSWER2);
+        verify(javaRepository, times(1)).add(QUESTION1, ANSWER1);
+        verify(mathRepository, times(1)).add(QUESTION2, ANSWER2);
     }
+
     @Test
-    public void addWhenThrowTest(){
-        when(javaRepository.add(any(),any())).thenThrow(IllegalArgumentException.class);
-        when(mathRepository.add(any(),any())).thenThrow(IllegalArgumentException.class);
-        assertThrows(IllegalArgumentException.class,()->outJ.add(QUESTION1, ANSWER1));
-        assertThrows(IllegalArgumentException.class,()->outM.add(QUESTION2, ANSWER2));
+    public void addWhenThrowTest() {
+        when(javaRepository.add(any(), any())).thenThrow(IllegalArgumentException.class);
+        when(mathRepository.add(any(), any())).thenThrow(IllegalArgumentException.class);
+        assertThrows(IllegalArgumentException.class, () -> outJ.add(QUESTION1, ANSWER1));
+        assertThrows(IllegalArgumentException.class, () -> outM.add(QUESTION2, ANSWER2));
     }
 
     @Test
@@ -69,27 +70,31 @@ public class QuestionServiceTest {
 
         assertEquals(questionJ, outJ.remove(questionJ));
         assertEquals(questionM, outM.remove(questionM));
-        verify(javaRepository,times(1)).remove(questionJ);
-        verify(mathRepository,times(1)).remove(questionM);
+        verify(javaRepository, times(1)).remove(questionJ);
+        verify(mathRepository, times(1)).remove(questionM);
 
     }
+
     @Test
-    public void removeWhenThrowTest(){
+    public void removeWhenThrowTest() {
         when(javaRepository.remove(any())).thenThrow(QuestionNotFound.class);
         when(mathRepository.remove(any())).thenThrow(QuestionNotFound.class);
-        assertThrows(QuestionNotFound.class,()->outJ.remove(questionJ));
-        assertThrows(QuestionNotFound.class,()->outM.remove(questionM));
+        assertThrows(QuestionNotFound.class, () -> outJ.remove(questionJ));
+        assertThrows(QuestionNotFound.class, () -> outM.remove(questionM));
     }
+
     @Test
-    public void getAllTestJava(){
+    public void getAllTestJava() {
         when(javaRepository.getAll()).thenReturn(QUESTIONS);
-        assertIterableEquals(QUESTIONS,outJ.getAll());
+        assertIterableEquals(QUESTIONS, outJ.getAll());
     }
+
     @Test
-    public void getAllTestMath(){
+    public void getAllTestMath() {
         when(mathRepository.getAll()).thenReturn(QUESTIONS);
-        assertIterableEquals(QUESTIONS,outM.getAll());
+        assertIterableEquals(QUESTIONS, outM.getAll());
     }
+
     @Test
     public void findTest() {
         when(javaRepository.find(QUESTION1)).thenReturn(questionJ);
@@ -97,15 +102,16 @@ public class QuestionServiceTest {
 
         assertEquals(questionJ, outJ.find(QUESTION1));
         assertEquals(questionM, outM.find(QUESTION2));
-        verify(javaRepository,times(1)).find(QUESTION1);
-        verify(mathRepository,times(1)).find(QUESTION2);
+        verify(javaRepository, times(1)).find(QUESTION1);
+        verify(mathRepository, times(1)).find(QUESTION2);
     }
+
     @Test
-    public void findWhenThrowTest(){
+    public void findWhenThrowTest() {
         when(javaRepository.find(any())).thenThrow(QuestionNotFound.class);
         when(mathRepository.find(any())).thenThrow(QuestionNotFound.class);
-        assertThrows(QuestionNotFound.class,()->outJ.find(QUESTION1));
-        assertThrows(QuestionNotFound.class,()->outM.find(QUESTION2));
+        assertThrows(QuestionNotFound.class, () -> outJ.find(QUESTION1));
+        assertThrows(QuestionNotFound.class, () -> outM.find(QUESTION2));
     }
 }
 

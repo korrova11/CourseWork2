@@ -8,7 +8,7 @@ import java.util.*;
 
 @Repository
 public class JavaQuestionRepository implements QuestionRepository {
-  //  private final List<Question> listQuestion = new ArrayList<>();
+    //  private final List<Question> listQuestion = new ArrayList<>();
 
     private final ArrayList<Question> listQuestion = new ArrayList<>(List.of(
             new Question(

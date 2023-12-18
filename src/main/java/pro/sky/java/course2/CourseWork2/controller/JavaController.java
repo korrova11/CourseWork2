@@ -26,7 +26,7 @@ public class JavaController {
     @GetMapping("/add")
     public Question add(@RequestParam String question, @RequestParam String answer) {
 
-        return question3.add(question,answer);
+        return question3.add(question, answer);
     }
 
     @GetMapping("/remove")
