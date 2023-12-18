@@ -10,6 +10,7 @@ import pro.sky.java.course2.CourseWork2.model.Question;
 import pro.sky.java.course2.CourseWork2.service.JavaQuestionService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/java")
@@ -24,8 +25,8 @@ public class JavaController {
 
     @GetMapping("/add")
     public Question add(@RequestParam String question, @RequestParam String answer) {
-        Question question1 = new Question(question, answer);
-        return question3.add(question1);
+
+        return question3.add(question,answer);
     }
 
     @GetMapping("/remove")
@@ -35,7 +36,7 @@ public class JavaController {
     }
 
     @GetMapping
-    public Collection<Question> getQuestions() {
+    public List<Question> getQuestions() {
         return question3.getAll();
     }
 

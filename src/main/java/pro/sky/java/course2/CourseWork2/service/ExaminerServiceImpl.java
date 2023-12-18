@@ -15,7 +15,7 @@ public class ExaminerServiceImpl implements ExaminerService {
     private final QuestionService questionService;
 
     @Autowired
-    ExaminerServiceImpl(@Qualifier("mathQuestionService") QuestionService questionService) {
+    public ExaminerServiceImpl(@Qualifier("mathQuestionService") QuestionService questionService) {
 
         this.questionService = questionService;
     }
@@ -23,7 +23,7 @@ public class ExaminerServiceImpl implements ExaminerService {
     @Override
     public Set<Question> getQuestion(int amount) {
         if (amount > questionService.size()) {
-            throw new FullSet("Максимальное количество вопросов = " + questionService.size());
+            throw new FullSet("Максимальное количество вопросов = " + questionService.getAll().size());
         }
 
         Set<Question> list = new HashSet<>();

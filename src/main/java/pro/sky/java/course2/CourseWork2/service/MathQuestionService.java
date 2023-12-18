@@ -3,100 +3,58 @@ package pro.sky.java.course2.CourseWork2.service;
 import org.springframework.stereotype.Service;
 import pro.sky.java.course2.CourseWork2.exception.QuestionNotFound;
 import pro.sky.java.course2.CourseWork2.model.Question;
+import pro.sky.java.course2.CourseWork2.repository.JavaQuestionRepository;
+import pro.sky.java.course2.CourseWork2.repository.MathQuestionRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+
 @Service
 public class MathQuestionService implements QuestionService {
-    private final ArrayList<Question> listQuestion = new ArrayList<>(List.of(
-            new Question(
-                    "Что такое функция",
-                    "ответ"),
-            new Question(
-                    "Дайте определение предела функции",
-                    "ответ"),
-            new Question(
-                    "Дайте определение производной",
-                    "ответ"),
 
-            new Question(
-                    "Какой геометрический смысл производной?",
-                    "ответ"),
-            new Question(
-                    "Как выглядит уравнение для нахождения ассимптот?",
-                    "ответ"),
+    private final MathQuestionRepository mathRepository;
 
-            new Question(
-                    "Расскажите об области значений функции",
-                    "ответ"),
-            new Question(
-                    "Как связаны знак производной и области возрастания или убывания функции",
-                    "ответ"),
-            new Question(
-                    "Как можно найти экстремумы?",
-                    "ответ"),
-            new Question(
-                    "Как выглядит уравнение окружности?",
-                    "ответ"),
-            new Question(
-                    "Какую геометрическую фигуру представляет колобок?",
-                    "ответ")
-
-    ));
+    public MathQuestionService(MathQuestionRepository mathRepository) {
+        this.mathRepository = mathRepository;
+    }
 
 
     @Override
     public Question add(String question, String answer) {
-        Question q = new Question(question, answer);
-        if (listQuestion.contains(q)) {
-            throw new IllegalArgumentException("Данный вопрос уже есть в списке");
-        }
-        listQuestion.add(q);
-        return q;
+        return mathRepository.add(question, answer);
     }
 
-    @Override
-    public Question add(Question question) {
-        listQuestion.add(question);
-        return question;
-
-    }
 
     @Override
     public Question remove(Question question) {
 
-        if (listQuestion.remove(question)) {
-            return question;
-        }
-        throw new QuestionNotFound("Элемента нет в списке");
+        return mathRepository.remove(question);
     }
 
     @Override
     public Collection<Question> getAll() {
-        return listQuestion;
+
+        return mathRepository.getAll();
     }
 
     @Override
     public Question find(String question) {
-        return listQuestion.stream()
-                .filter(e -> e.getQuestion().equals(question))
-                .findFirst()
-                .orElseThrow(QuestionNotFound::new);
+        return mathRepository.find(question);
 
     }
 
     @Override
     public Question getRandomQuestion() {
         Random random = new Random();
-        int i = random.nextInt(listQuestion.size());
+        int i = random.nextInt(mathRepository.getAll().size());
 
-        return listQuestion.get(i);
+        return mathRepository.getAll().get(i);
     }
 
-    @Override
     public int size() {
-        return listQuestion.size();
+        return mathRepository.getAll().size();
     }
+
 }

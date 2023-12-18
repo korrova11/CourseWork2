@@ -10,10 +10,9 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pro.sky.java.course2.CourseWork2.exception.FullSet;
 import pro.sky.java.course2.CourseWork2.model.Question;
-import pro.sky.java.course2.CourseWork2.service.ExaminerService;
-import pro.sky.java.course2.CourseWork2.service.ExaminerServiceImpl;
-import pro.sky.java.course2.CourseWork2.service.JavaQuestionService;
-import pro.sky.java.course2.CourseWork2.service.QuestionService;
+import pro.sky.java.course2.CourseWork2.repository.JavaQuestionRepository;
+import pro.sky.java.course2.CourseWork2.repository.MathQuestionRepository;
+import pro.sky.java.course2.CourseWork2.service.*;
 
 import java.util.Random;
 
@@ -22,14 +21,25 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+
 public class ExaminerServiceTest {
-    @Mock
-    private QuestionService questionService;
-    @InjectMocks
+
+
     private ExaminerServiceImpl out;
+    private final JavaQuestionService javaService = mock(JavaQuestionService.class);
+    private final MathQuestionService mathService = mock(MathQuestionService.class);
+    private ExaminerService outJ;
+    private ExaminerService outM;
+
+    @BeforeEach
+    public void initOut() {
+        outJ = new ExaminerServiceImpl(javaService);
+        outM = new ExaminerServiceImpl(mathService);
+
+    }
 
 
     public static final Question QUESTION_1 = new Question("Вопрос1", "Ответ1");
@@ -40,29 +50,54 @@ public class ExaminerServiceTest {
 
 
     @Test
-    public void getQuestionTestOnThrow() {
-        when(questionService.size()).thenReturn(5);
-              assertThrows(FullSet.class, () -> out.getQuestion(7));
+    public void getQuestionJavaTestOnThrow() {
+        when(javaService.size()).thenReturn(5);
+        assertThrows(FullSet.class, () -> outJ.getQuestion(7));
 
     }
 
     @Test
-    public void getQuestionTest() {
-        when(questionService.getRandomQuestion())
-                .thenReturn(QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5);
-        when(questionService.size()).thenReturn(10);
-        assertEquals(out.getQuestion(5).size(), 5);
+    public void getQuestionMathTestOnThrow() {
+        when(mathService.size()).thenReturn(5);
+        assertThrows(FullSet.class, () -> outM.getQuestion(7));
 
     }
+
     @Test
-    public void getQuestionTestOnContains() {
-        when(questionService.getRandomQuestion())
+    public void getQuestionJavaTest() {
+        when(javaService.getRandomQuestion())
                 .thenReturn(QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5);
-        when(questionService.size()).thenReturn(10);
-       assertTrue(out.getQuestion(5).contains(QUESTION_3));
+        when(javaService.size()).thenReturn(10);
+        assertEquals(outJ.getQuestion(5).size(), 5);
 
     }
 
+    @Test
+    public void getQuestionJavaTestOnContains() {
+        when(javaService.getRandomQuestion())
+                .thenReturn(QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5);
+        when(javaService.size()).thenReturn(10);
+        assertTrue(outJ.getQuestion(5).contains(QUESTION_3));
+
+    }
+
+       @Test
+    public void getQuestionMathTest() {
+        when(mathService.getRandomQuestion())
+                .thenReturn(QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5);
+        when(mathService.size()).thenReturn(10);
+        assertEquals(outM.getQuestion(5).size(), 5);
+
+    }
+
+    @Test
+    public void getQuestionMathTestOnContains() {
+        when(mathService.getRandomQuestion())
+                .thenReturn(QUESTION_1, QUESTION_2, QUESTION_3, QUESTION_4, QUESTION_5);
+        when(mathService.size()).thenReturn(10);
+        assertTrue(outM.getQuestion(5).contains(QUESTION_3));
+
+    }
 
 
 }

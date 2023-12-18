@@ -23,8 +23,8 @@ public class MathQuestionController {
 
     @GetMapping("/add")
     public Question add(@RequestParam String question, @RequestParam String answer) {
-        Question question1 = new Question(question, answer);
-        return question2.add(question1);
+
+        return question2.add(question,answer);
     }
 
     @GetMapping("/remove")
