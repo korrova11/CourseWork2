@@ -18,6 +18,7 @@ public class MathQuestionController {
     private final MathQuestionService mathQuestionService;
 
     public MathQuestionController(MathQuestionService question) {
+
         this.mathQuestionService = question;
     }
 
