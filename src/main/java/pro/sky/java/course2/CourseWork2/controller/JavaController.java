@@ -16,33 +16,33 @@ import java.util.List;
 @RequestMapping("/java")
 
 public class JavaController {
-    @Qualifier
-    private final JavaQuestionService question3;
+    @Qualifier("javaQuestionService")
+    private final JavaQuestionService javaQuestionService;
 
     public JavaController(JavaQuestionService question) {
-        this.question3 = question;
+        this.javaQuestionService = question;
     }
 
     @GetMapping("/add")
     public Question add(@RequestParam String question, @RequestParam String answer) {
 
-        return question3.add(question, answer);
+        return javaQuestionService.add(question, answer);
     }
 
     @GetMapping("/remove")
     public Question remove(@RequestParam String question, @RequestParam String answer) {
         Question question1 = new Question(question, answer);
-        return question3.remove(question1);
+        return javaQuestionService.remove(question1);
     }
 
     @GetMapping
     public List<Question> getQuestions() {
-        return question3.getAll();
+        return javaQuestionService.getAll();
     }
 
     @GetMapping("/find")
     public Question find(@RequestParam String question) {
-        return question3.find(question);
+        return javaQuestionService.find(question);
     }
 
 }

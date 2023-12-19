@@ -14,34 +14,33 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/math")
 public class MathQuestionController {
-
-
-    private final MathQuestionService question2;
+    @Qualifier("mathQuestionService")
+    private final MathQuestionService mathQuestionService;
 
     public MathQuestionController(MathQuestionService question) {
-        this.question2 = question;
+        this.mathQuestionService = question;
     }
 
     @GetMapping("/add")
     public Question add(@RequestParam String question, @RequestParam String answer) {
 
-        return question2.add(question, answer);
+        return mathQuestionService.add(question, answer);
     }
 
     @GetMapping("/remove")
     public Question remove(@RequestParam String question, @RequestParam String answer) {
         Question question1 = new Question(question, answer);
-        return question2.remove(question1);
+        return mathQuestionService.remove(question1);
     }
 
     @GetMapping
     public Collection<Question> getQuestions() {
-        return question2.getAll();
+        return mathQuestionService.getAll();
     }
 
     @GetMapping("/find")
     public Question find(@RequestParam String question) {
-        return question2.find(question);
+        return mathQuestionService.find(question);
     }
 
 }
